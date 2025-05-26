@@ -1,7 +1,6 @@
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import {  TrashIcon, CheckIcon, PlusSquareIcon } from "@phosphor-icons/react";
-import { taskUsers } from "../data/data";
+import {  TrashIcon, CheckIcon, PlusSquareIcon,  RadioButtonIcon } from "@phosphor-icons/react";
 import type { taskProps } from "../types/users";
 import { useEffect, useState } from "react";
 
@@ -35,6 +34,12 @@ export const Home = () => {
     setTasks([...task, novaTask]);
   }
 
+  function addCheck(value:number){
+   const novaLista=task.filter((tarefa)=>tarefa.id===value? tarefa.checked=!tarefa.checked:tarefa.checked )
+   setTasks(novaLista)
+
+  }
+
  
   return (
     <div>
@@ -55,7 +60,7 @@ export const Home = () => {
               className="bg-white text-gray-900 px-3 py-1 rounded hover:bg-gray-200"
               onClick={addTask}
             >
-              <span><PlusSquareIcon size={25} /></span>
+              <span><PlusSquareIcon size={32} /></span>
             </button>
           </div>
           <h2 className="text-2xl font-bold mb-4 my-4">Minhas Tarefas</h2>
@@ -71,8 +76,9 @@ export const Home = () => {
                   <p className="text-sm text-gray-400">{item.dateTask}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button >
-                  <CheckIcon size={32}/>
+
+                  <button onClick={()=>addCheck(item.id)} >
+                 {item.checked?  <CheckIcon size={32} className="text-white"/>:  <RadioButtonIcon size={32} /> }
                   </button>
 
                   <button
@@ -81,6 +87,7 @@ export const Home = () => {
                     className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
                   >
                     <TrashIcon size={32} />
+                  
                   </button>
                 </div>
               </div>
